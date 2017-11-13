@@ -1,0 +1,108 @@
+/*
+Name: Sliding Login Panel with jQuery 1.3.2
+Author: Jeremie Tisseau
+Author URI: http://web-kreation.com/
+Script URI: http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery/
+Date: March 26, 2009
+Version: 1.0
+
+	Copyright 2009 Jeremie Tisseau
+	"Sliding Login Panel with jQuery 1.3.2" is distributed under the GNU General Public License version 3:
+	http://www.gnu.org/licenses/gpl-3.0.html
+
+*/       
+
+html, body {border: 0; margin: 0; padding: 0;}
+
+body {
+  	font-family:  arial, helvetica, sans-serif;
+                        font-size: 14px;
+	background: #FFFFFFF url(images1/bg.jpg) repeat 0 0;
+  	line-height: 130%;
+  	width: 100%;
+  	min-width: 970px;
+  	color: black;
+}
+
+a {
+	color: #0099CC;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #00CCFF;
+}
+
+a img {
+  border: none;/*remove border for linked images*/
+}
+
+h1 {
+	font-size: 16px;
+        font-family: arial;
+	height: 20px;
+	padding-top: 0;
+}
+
+h2{
+	font-size: 16px;
+                    font-family: arial;
+	height: 20px;
+	padding-top: 0;
+}
+
+.highlight {background-color:#FF9D9D;border-bottom:#F30 1px solid;border-top:#F30 1px solid;padding: 4px 10px}
+
+/***** Main Layout ****/
+#container {
+  	width: 100%;
+  	height: 100%;
+  	text-align: center;/* IE fix to center the page */
+}
+
+#content {
+  	width: 740px;
+  	margin: 0 auto;/* center the page in Firefox */
+  	text-align: left;
+	padding: 20px;
+}
+
+#iniciar {
+    font-size: 16px;
+    font-family: arial;
+    display: block;
+	float: left;
+	clear: left;
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	font-weight: bold;
+	margin: 10px 0;
+                    width:180px;
+                   -webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+                    
+    cursor:pointer;
+    background-color:#00baff;
+   border:none;
+   color: white;
+    height:40px;
+ 
+    transition:background-color 2s;
+    -webkit-transition:background-color 1s;
+    -moz-transition:background-color 1s;
+    -o-transition:background-color 1s;
+}
+
+#iniciar:hover{
+    background-color:#F5FCFF;
+      border:none;
+    font-size: 16px;
+    font-family: arial;
+    color:#00baff;
+    -webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+}

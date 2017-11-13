@@ -5,18 +5,21 @@
 
 	<artifactId>spring-boot-web-jsp</artifactId>
 	<packaging>war</packaging>
-	<name>Spring Boot Web JSP Example</name>
+	<name>Spring Boot Web JSP Project</name>
 	<description>Spring Boot Web JSP Example</description>
-	<url>https://www.mkyong.com</url>
+	<url>https://www.kinto.com</url>
 	<version>1.0</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>
+		<!-- >version>1.5.8.RELEASE</version-->
+		<version>1.5.1.RELEASE</version >
 	</parent>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
 	</properties>
 
@@ -27,7 +30,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+
+
 		<!-- Web with Tomcat + Embed -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

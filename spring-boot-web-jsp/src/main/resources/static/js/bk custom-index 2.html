@@ -1,0 +1,350 @@
+$('document').ready(function(){
+
+  //Scrollbar
+  $('#scrollbar-three').tinyscrollbar();
+  
+});
+
+// Flot Charts
+var updateInterval = 500;
+
+$("#updateInterval").val(updateInterval).change(function () {
+  var v = $(this).val();
+  if (v && !isNaN(+v)) {
+    updateInterval = +v;
+    if (updateInterval < 1)
+      updateInterval = 1;
+    if (updateInterval > 2000)
+      updateInterval = 2000;
+    $(this).val("" + updateInterval);
+  }
+});
+
+var data = [], totalPoints = 200;
+function getRandomData() {
+  if (data.length > 0)
+    data = data.slice(1);
+
+  // do a random walk
+  while (data.length < totalPoints) {
+    var prev = data.length > 0 ? data[data.length - 1] : 50;
+    var y = prev + Math.random() * 10 - 5;
+    if (y < 0)
+      y = 0;
+    if (y > 100)
+      y = 100;
+    data.push(y);
+  }
+
+  // zip the generated y values with the x values
+  var res = [];
+  for (var i = 0; i < data.length; ++i)
+    res.push([i, data[i]])
+  return res;
+}
+
+if($("#serverLoad").length){
+  var options = {
+    series: { shadowSize: 1 },
+    lines: { show: true, lineWidth: 3, fill: true, fillColor: { colors: [ { opacity: 0.5 }, { opacity: 0.5 } ] }},
+    yaxis: { min: 0, max: 200, tickFormatter: function (v) { return v + "%"; }},
+    xaxis: { show: false },
+    colors: ["#3660aa"],
+    grid: { tickColor: "#f2f2f2",
+      borderWidth: 0, 
+    },
+  };
+  var plot = $.plot($("#serverLoad"), [ getRandomData() ], options);
+  function update() {
+    plot.setData([ getRandomData() ]);
+    // since the axes don't change, we don't need to call plot.setupGrid()
+    plot.draw();
+    setTimeout(update, updateInterval);
+  }
+  update();
+}
+
+if($("#realtimechart").length){
+  var options = {
+    series: { shadowSize: 1 },
+    lines: { lineWidth: 1, fill: true, fillColor: { colors: [ { opacity: 1 }, { opacity: 0.1 } ] }},
+    yaxis: { min: 0, max: 200 },
+    xaxis: { show: false },
+    colors: ["#3660aa"],
+    grid: { tickColor: "#eeeeee",
+      borderWidth: 0 
+    },
+  };
+  var plot = $.plot($("#realtimechart"), [ getRandomData() ], options);
+  function update() {
+    plot.setData([ getRandomData() ]);
+    // since the axes don't change, we don't need to call plot.setupGrid()
+    plot.draw();
+    setTimeout(update, updateInterval);
+  }
+  update();
+}
+
+
+//Selection Charts
+
+$(function() {
+
+
+
+var contentData = [];
+
+var var_i=0;
+
+contentData[var_i] = new Date(2016,08,01).getTime();
+
+  var data = [{
+    label: "Citas, Agendadas",
+    data: [[new Date(2016,08,01).getTime(), 2], [new Date(2016,08,02).getTime(), 32], [new Date(2016,08,03).getTime(), 58], [new Date(2016,08,04).getTime(), 38], [new Date(2016,08,04).getTime(), 26], [new Date(2016,08,05).getTime(), 163], [new Date(2016,08,06).getTime(), 26], [new Date(2016,08,07).getTime(), 49], [new Date(2016,08,08).getTime(), 12], [new Date(2016,08,09).getTime(), 45], [new Date(2016,08,10).getTime(), 78], [new Date(2016,08,11).getTime(), 10], [new Date(2016,08,12).getTime(), 34], [new Date(2016,08,13).getTime(), 58], [new Date(2016,08,14).getTime(), 113]]
+  },
+  {
+    label: "Citas, Asistidas",
+    data: [[new Date(2016,08,01).getTime(), 1], [new Date(2016,08,02).getTime(), 8], [new Date(2016,08,03).getTime(), 34], [new Date(2016,08,04).getTime(), 6], [new Date(2016,08,04).getTime(), 10], [new Date(2016,08,05).getTime(), 13], [new Date(2016,08,06).getTime(), 20], [new Date(2016,08,07).getTime(), 40], [new Date(2016,08,08).getTime(), 2], [new Date(2016,08,09).getTime(), 35], [new Date(2016,08,10).getTime(), 78], [new Date(2016,08,11).getTime(), 10], [new Date(2016,08,12).getTime(), 34], [new Date(2016,08,13).getTime(), 48], [new Date(2016,08,14).getTime(), 103]]       
+  }];
+
+  var options = {
+
+    
+    series: {
+      lines: { show: true,
+        lineWidth: 2,
+        fill: false,
+        },
+      points: { 
+        radius: 3,
+                show: true,
+                fill: true
+        },
+      shadowSize: 0
+    },
+    grid: { 
+      hoverable: true, 
+      clickable: true, 
+      tickColor: "#eeeeee",
+      borderWidth: 0
+    },
+    legend: {
+      show: true,
+    
+    labelBoxBorderColor: "eeeeee",
+    noColumns: 3,
+    position: null,
+    margin: 20,
+    backgroundColor: "eeeeee",
+    backgroundOpacity: .5
+    
+    },
+    colors: ["#3b5a9b", "#d3503e"],
+     xaxis: {
+        
+        tickSize: [1, "month"],
+        monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        tickLength: 2 ,
+        axisLabel: 'Month',
+        axisLabelUseCanvas: true,
+        axisLabelFontSizePixels: 12,
+        axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+        axisLabelPadding: 5,
+        ticks:5, 
+        tickDecimals: 0
+      },
+     yaxis: {
+       axisLabel:'Citas',
+      axisLabelUseCanvas:true,
+      axisLabelFontSizePixels: 12,
+      axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+      axisLabelPadding: 5,
+      ticks:3, 
+      tickDecimals: 0
+      
+    },
+    selection: {
+      mode: "x"
+    }
+  };
+
+  var placeholder = $("#selectionCharts");
+
+  placeholder.bind("plotselected", function (event, ranges) {
+
+    $("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+
+    var zoom = $("#zoom").attr("checked");
+
+    if (zoom) {
+      plot = $.plot(placeholder, data, $.extend(true, {}, options, {
+        xaxis: {
+          min: ranges.xaxis.from,
+          max: ranges.xaxis.to
+        }
+      }));
+    }
+  });
+
+  function showTooltip(x, y, contents, z) {
+        //$('<div id="tooltip">' + contents + '</div>').css({
+        $('<div id="flot-tooltip">fsafsadf</div>').css({
+            top: y - 30,
+            left: x - 135,
+            'border-color': z,
+        }).appendTo("body").fadeIn(200);
+    }
+     
+    function getMonthName(numericMonth) {
+        var monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var alphaMonth = monthArray[numericMonth];
+         
+        return alphaMonth;
+    }
+     
+    function convertToDate(timestamp) {
+        var newDate = new Date(timestamp);
+        var dateString = newDate.getMonth();
+        var monthName = getMonthName(dateString);
+         
+        return monthName;
+    }
+ 
+    var previousPoint = null;
+
+
+    placeholder.bind("plothover", function (event, pos, item) {
+        if (item) {
+            if ((previousPoint != item.dataIndex) || (previousLabel != item.series.label)) {
+                previousPoint = item.dataIndex;
+                previousLabel = item.series.label;
+             
+                $("#flot-tooltip").remove();
+ 
+                var x = convertToDate(item.datapoint[0]),
+                y = item.datapoint[1];
+                z = item.series.color;
+                     
+                showTooltip(item.pageX, item.pageY,
+                    "<b>" + item.series.label + "</b><br /> " + x + " = " + y + "mm",
+                    z);
+            }
+        } else {
+            $("#flot-tooltip").remove();
+            previousPoint = null;            
+        }
+    });
+
+    
+
+  placeholder.bind("plotunselected", function (event) {
+    $("#selection").text("");
+  });
+
+  var plot = $.plot(placeholder, data, options);
+
+  $("#clearSelection").click(function () {
+    plot.clearSelection();
+  });
+
+  $("#setSelection").click(function () {
+    plot.setSelection({
+      xaxis: {
+        from: 2016,
+        to: 2016
+      }
+    });
+  });
+  // Add the Flot version string to the footer
+  $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+});
+
+
+// Calendar
+$(document).ready(function() {
+
+  var date = new Date();
+  var d = date.getDate();
+  var m = date.getMonth();
+  var y = date.getFullYear();
+  
+  var calendar = $('#calendar').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+    selectable: true,
+    selectHelper: true,
+    select: function(start, end, allDay) {
+      var title = prompt('Event Title:');
+      if (title) {
+        calendar.fullCalendar('renderEvent',
+          {
+            title: title,
+            start: start,
+            end: end,
+            allDay: allDay
+          },
+          true // make the event "stick"
+        );
+      }
+      calendar.fullCalendar('unselect');
+    },
+    editable: true,
+    events: [
+      {
+        title: 'All Day Event',
+        start: new Date(y, m, 1)
+      },
+      {
+        id: 999,
+        title: 'Repeating Event',
+        start: new Date(y, m, d-3, 16, 0),
+        allDay: false
+      },
+      {
+        title: 'Meeting',
+        start: new Date(y, m, d, 10, 30),
+        allDay: false
+      },
+      {
+        title: 'Lunch',
+        start: new Date(y, m, d, 12, 0),
+        end: new Date(y, m, d, 14, 0),
+        allDay: false
+      },
+      {
+        title: 'Birthday Party',
+        start: new Date(y, m, d+1, 19, 0),
+        end: new Date(y, m, d+1, 22, 30),
+        allDay: false
+      }
+    ]
+  });
+});
+
+// Morris Charts and Graphs
+function socialGraph(){
+  Morris.Donut({
+    element: 'socialGraph',
+    data: [
+      {value: 47, label: 'Genearl'},
+      {value: 28, label: 'Obstetricia'},
+      {value: 17, label: 'Oftalmología'},
+      {value: 8, label: 'Psicología'}
+    ],
+    labelColor: '#0b62a4',
+    formatter: function (x) { return x + "%"}
+  });
+}
+$(document).ready(function () {
+  socialGraph();
+});
+
+//Resize charts and graphs on window resize
+$(document).ready(function () {
+  $(window).resize(function(){
+    socialGraph();
+  });
+});

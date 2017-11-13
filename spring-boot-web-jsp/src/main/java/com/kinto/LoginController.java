@@ -15,9 +15,9 @@ public class LoginController {
 	private String message = "Hello World";
 
 	@RequestMapping("/")
-	public String welcome(Map<String, Object> model) {
+	public String login(Map<String, Object> model) {
 		model.put("message", this.message);
-		return "welcome";
+		return "login";
 	}
 
 }
